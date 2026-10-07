@@ -158,12 +158,14 @@ mensaje de bienvenida únicamente la primera vez que se presiona.
 
 ## Conceptos de Vue.js demostrados (por lección)
 
-### Lección 1 — Introducción a Vue.js: dashboard de indicadores
+### Lección 1 — Introducción a Vue.js: contador y dashboard de indicadores
 
 [InicioView.vue](./src/views/InicioView.vue) muestra el nombre de usuario
-(`usuario.nombre`) mediante interpolación y un dashboard con 4 indicadores de
-gestión para Editorial Nova, calculados con propiedades `computed` a partir del
-catálogo real de libros:
+(`usuario.nombre`) mediante interpolación, un **contador reactivo** básico
+(`contador` en `data()`, con los métodos `incrementar`, `disminuir` y
+`reiniciar`) y, además, un dashboard con 4 indicadores de gestión para
+Editorial Nova, calculados con propiedades `computed` a partir del catálogo
+real de libros:
 
 - `totalLibros` — cantidad total de libros.
 - `librosPorCategoria` — cantidad agrupada por `Ficción` / `No Ficción` / `Técnico`.
@@ -173,13 +175,6 @@ catálogo real de libros:
 Al agregar o eliminar un libro desde `/libros`, estos indicadores se recalculan
 solos porque `InicioView` lee el mismo arreglo reactivo del store
 (`obtenerLibros()`) que usa `ListaLibros`.
-
-> **Nota:** la especificación original de este módulo pedía además un contador
-> reactivo genérico con botones +/-/reiniciar. Se reemplazó intencionalmente
-> por los indicadores de negocio (a pedido explícito durante el desarrollo), ya
-> que `totalLibros` cumple el mismo rol pedagógico (un número que sube y baja
-> reactivamente) pero con datos reales del catálogo en vez de un valor
-> arbitrario.
 
 ### Lección 2 — Templates y rendering
 
@@ -210,9 +205,13 @@ título, autor, categoría o tipo, mostrando mensajes claros por campo.
 
 ### Lección 4 — Manejo de eventos
 
-- `@click` en múltiples botones (agregar, eliminar, alternar vista previa,
-  limpiar filtros).
-- `@submit.prevent` en el formulario evita la recarga de página al enviarlo.
+- `@click` en múltiples botones: "Agregar libro" (`type="button"`, para que
+  el click dispare `manejarEnvio` una sola vez sin pasar por el envío nativo
+  del formulario), eliminar, alternar vista previa, limpiar filtros, y el
+  contador de `InicioView.vue`.
+- `@submit.prevent` en el `<form>` sigue evitando la recarga de página si el
+  usuario presiona Enter en un campo que no tiene su propio manejador de
+  teclado (categoría, tipo, año, descripción).
 - `@keydown.enter.prevent` junto con `@keyup.enter` en los campos de título y
   autor permite agregar un libro presionando Enter, sin que el navegador
   dispare además el envío nativo del formulario (lo que provocaría una
