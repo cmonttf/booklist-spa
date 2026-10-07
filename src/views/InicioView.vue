@@ -12,6 +12,17 @@
       </router-link>
     </section>
 
+    <section class="seccion tarjeta">
+      <h3>Contador de demostración</h3>
+      <p>Ejemplo básico de reactividad con <code>data()</code> y <code>methods</code>.</p>
+      <div class="contador">
+        <button class="boton boton--secundario" @click="disminuir">-</button>
+        <span class="contador__valor">{{ contador }}</span>
+        <button class="boton boton--secundario" @click="incrementar">+</button>
+        <button class="boton boton--primario" @click="reiniciar">Reiniciar</button>
+      </div>
+    </section>
+
     <section class="seccion">
       <h2 class="seccion__titulo">📊 Resumen de gestión — Editorial Nova</h2>
       <p>Indicadores calculados en tiempo real a partir del catálogo (propiedades <code>computed</code>).</p>
@@ -64,6 +75,7 @@ export default {
       usuario: {
         nombre: 'Admin Editorial Nova'
       },
+      contador: 0,
       // Referencia al mismo arreglo reactivo del store: los indicadores se
       // recalculan solos al agregar/eliminar libros desde /libros.
       libros: obtenerLibros()
@@ -94,6 +106,19 @@ export default {
     },
     promedioLibrosPorCategoria() {
       return this.totalLibros / CATEGORIAS.length
+    }
+  },
+  methods: {
+    incrementar() {
+      this.contador++
+    },
+    disminuir() {
+      if (this.contador > 0) {
+        this.contador--
+      }
+    },
+    reiniciar() {
+      this.contador = 0
     }
   },
   mounted() {
