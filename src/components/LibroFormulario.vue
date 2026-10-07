@@ -71,7 +71,7 @@
       </p>
 
       <div>
-        <button type="submit" class="boton boton--primario">
+        <button type="button" class="boton boton--primario" @click="manejarEnvio">
           Agregar libro
         </button>
         <button
